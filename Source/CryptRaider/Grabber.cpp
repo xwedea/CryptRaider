@@ -44,11 +44,15 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	}
 }
 
+
 bool UGrabber::CanGrab(AActor ** actor) {
 	FVector startLocation = GetOwner()->GetActorLocation() + FVector(0,0,64);
 	FVector endLocation = startLocation + GetForwardVector() * grabDistance;
 
-	DrawDebugLine(GetWorld(), startLocation, endLocation, FColor::Red);
+ 
+	// DrawDebugLine(GetWorld(), startLocation, endLocation, FColor::Red);
+	// End Of Grabber
+	
 
 	FHitResult hitResult;
 	FCollisionShape sphere = FCollisionShape::MakeSphere(grabRadius);
@@ -63,11 +67,29 @@ bool UGrabber::CanGrab(AActor ** actor) {
 
 	if (isHit) {
 		*actor = hitResult.GetActor();
+		// Impact Point
+		DrawDebugSphere(
+			GetWorld(), 
+			hitResult.ImpactPoint,
+			10,
+			10,
+			FColor::Blue
+		);
+		
 		return true;
+	} else {
+		// UE_LOG(LogTemp, Display, TEXT("Not Hit!"));
+		DrawDebugSphere(
+			GetWorld(), 
+			endLocation,
+			10,
+			10,
+			FColor::Red
+		);
+
+		return false;
 	}
 	
-	UE_LOG(LogTemp, Display, TEXT("Not Hit!"));
-	return false;
 }
 
 void UGrabber::Grab(AActor * actor) {
