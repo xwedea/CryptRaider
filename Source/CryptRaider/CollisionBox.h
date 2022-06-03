@@ -3,18 +3,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
-#include "Mover.generated.h"
+#include "Components/SceneComponent.h"
+#include "CollisionBox.generated.h"
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class CRYPTRAIDER_API UMover : public UActorComponent
+class CRYPTRAIDER_API UCollisionBox : public USceneComponent
 {
 	GENERATED_BODY()
 
 public:	
 	// Sets default values for this component's properties
-	UMover();
+	UCollisionBox();
 
 protected:
 	// Called when the game starts
@@ -23,22 +23,6 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	void Move(float DeltaTime);
-	void SetShouldMove(bool shouldMove);
-
-
-
-private:
-	UPROPERTY(EditAnywhere)
-		float moveTime = 4;
-	UPROPERTY(EditAnywhere)
-		FVector moveOffset;
-	UPROPERTY(EditAnywhere)
-		bool shouldMove = false;
-
-	
-	FVector originalLocation, endLocation;
-	float speed;
 
 		
 };
