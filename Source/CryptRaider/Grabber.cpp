@@ -43,17 +43,6 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 			10,
 			FColor::Blue
 		);
-
-		// DrawDebugString(
-		// 	GetWorld(),
-		// 	GetComponentLocation() + GetForwardVector() * grabDistance,
-		// 	FString(TEXT("Hold RT to Grab")),
-		// 	(AActor *)0,
-		// 	FColor::Red,
-		// 	0,
-		// 	false,
-		// 	2.0f	
-		// );
 	}
 
 	FVector targetLocation = GetComponentLocation() + GetForwardVector() * holdDistance;
@@ -77,6 +66,8 @@ void UGrabber::Grab() {
 		hitResult.ImpactPoint,
 		GetComponentRotation()
 	);
+	// add grabbed tag
+	hitResult.GetActor()->Tags.Add(TEXT("Grabbed"));
 }
 
 
@@ -108,6 +99,9 @@ void UGrabber::Release() {
 	if (grabbedComp) {
 		UE_LOG(LogTemp, Display, TEXT("Releasing: %s"), *grabbedComp->GetName());
 		handler->ReleaseComponent();
+
+		AActor * grabbedActor = grabbedComp->GetOwner();
+		grabbedActor->Tags.Remove(TEXT("Grabbed"));
 	}
 }
 

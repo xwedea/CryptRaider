@@ -4,19 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "Components/SceneComponent.h"
-#include "PhysicsEngine/PhysicsHandleComponent.h"
-
-#include "Grabber.generated.h"
+#include "Activator.generated.h"
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class CRYPTRAIDER_API UGrabber : public USceneComponent
+class CRYPTRAIDER_API UActivator : public USceneComponent
 {
 	GENERATED_BODY()
 
 public:	
 	// Sets default values for this component's properties
-	UGrabber();
+	UActivator();
 
 protected:
 	// Called when the game starts
@@ -25,21 +23,21 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	
-	UFUNCTION(BlueprintCallable)
-		void Grab();
-	UFUNCTION(BlueprintCallable)
-		void Release();
-	
-	bool CanGrab(FHitResult& hitResult);
 
 private:
 	UPROPERTY(EditAnywhere)
-		float grabDistance = 400.0f;
+		float range = 400.0f;
 	UPROPERTY(EditAnywhere)
-		float grabRadius = 10.0f;
+		float radius = 10.0f;
 	UPROPERTY(EditAnywhere)
 		float holdDistance = 350.0f;
+	
+	UFUNCTION(BlueprintCallable)
+		void Use();
 
-	UPhysicsHandleComponent * GetPhysicsHandleComponent() const;
+	bool CheckHitResults(FHitResult& hitResult);
+	void ActivateGatelock(UPrimitiveComponent * hitComponent);
+
+	
+		
 };

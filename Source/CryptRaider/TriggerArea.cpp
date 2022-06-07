@@ -40,14 +40,21 @@ bool UTriggerArea::CheckIfUnlocked() {
 	for  (int i = 0; i < overlapActors.Num(); i++) {
 		AActor * actor = overlapActors[i];
 		if (actor->ActorHasTag(keyTag)) {
+			UPrimitiveComponent * primitiveActor = Cast<UPrimitiveComponent>(actor->GetRootComponent());
+			if (primitiveActor != nullptr) {
+				primitiveActor->SetSimulatePhysics(false);
+			}
+			actor->AttachToComponent(this, FAttachmentTransformRules::KeepWorldTransform);
 			return true;
 		}
 	}
 	return false;
 }
 
+
+
 void UTriggerArea::TriggerParent() {
-	// GetOwner()->
+	// 
 }
 
 void UTriggerArea::SetMover(UMover * newMover) {

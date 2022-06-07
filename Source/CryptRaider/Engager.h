@@ -3,43 +3,37 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/SceneComponent.h"
-#include "PhysicsEngine/PhysicsHandleComponent.h"
-
-#include "Grabber.generated.h"
+#include "Components/ActorComponent.h"
+#include "Engager.generated.h"
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class CRYPTRAIDER_API UGrabber : public USceneComponent
+class CRYPTRAIDER_API UEngager : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:	
 	// Sets default values for this component's properties
-	UGrabber();
+	UEngager();
 
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
+	bool CheckHitResults(FHitResult& hitResult);
 
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	
 	UFUNCTION(BlueprintCallable)
-		void Grab();
-	UFUNCTION(BlueprintCallable)
-		void Release();
-	
-	bool CanGrab(FHitResult& hitResult);
+		void Engage();
 
 private:
 	UPROPERTY(EditAnywhere)
-		float grabDistance = 400.0f;
+		float range = 400.0f;
 	UPROPERTY(EditAnywhere)
-		float grabRadius = 10.0f;
+		float radius = 10.0f;
 	UPROPERTY(EditAnywhere)
 		float holdDistance = 350.0f;
-
-	UPhysicsHandleComponent * GetPhysicsHandleComponent() const;
+		
 };
