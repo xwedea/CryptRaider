@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/BoxComponent.h"
 #include "Mover.h"
+#include "DoorRotator.h"
 
 #include "GatelockTrigger.generated.h"
 
@@ -41,7 +42,6 @@ private:
 	UPROPERTY(EditAnywhere)
 		FName keyTag = FName(TEXT("key"));
 
-	bool isOpen = false;
 	UMover * mover;
 
 	FRotator left_closed = FRotator(0,0,0);

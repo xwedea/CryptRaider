@@ -52,6 +52,7 @@ void UActivator::ActivateGatelock(UPrimitiveComponent * hitComponent) {
 	UE_LOG(LogTemp, Display, TEXT("Activating Gatelock..."));
 	UGatelockTrigger * gatelock = (UGatelockTrigger *) hitComponent;
 	gatelock->ToggleGate();
+
 }
 
 

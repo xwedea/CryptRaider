@@ -10,7 +10,13 @@
 		}
 	],
 	"settings": {
-		"typescript.tsc.autoDetect": "off"
+		"typescript.tsc.autoDetect": "off",
+		"files.associations": {
+			"*.ipp": "cpp",
+			"fstream": "cpp",
+			"xlocmes": "cpp",
+			"locale": "cpp"
+		}
 	},
 	"extensions": {
 		"recommendations": [

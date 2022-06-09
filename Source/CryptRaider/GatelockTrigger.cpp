@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "GatelockTrigger.h"
 
 // Sets default values for this component's properties
@@ -34,31 +33,11 @@ void UGatelockTrigger::DisplayOptions() {
 
 void UGatelockTrigger::ToggleGate() {
 
-	TArray<UActorComponent *> doors =  GetOwner()->GetComponentsByTag(UActorComponent::StaticClass(), "door");
+	// TArray<UActorComponent *> doors =  GetOwner()->GetComponentsByTag(UActorComponent::StaticClass(), "door");
 	
-	// check if locked
+	UDoorRotator * rotatorComponent = (UDoorRotator *) GetOwner()->GetComponentByClass(UDoorRotator::StaticClass());
+	rotatorComponent->Toggle_isOpening();
 
-	if (isOpen) {
-		for (UActorComponent * e : doors) {
-			UPrimitiveComponent * door = (UPrimitiveComponent *) e;
-			if (door->ComponentHasTag("left")) {
-				door->SetWorldRotation(left_closed);
-			} else if (door->ComponentHasTag("right")) {
-				door->SetWorldRotation(right_closed);
-			}
-		}
-		isOpen = false;
-	} else {
-		for (UActorComponent * e : doors) {
-			UPrimitiveComponent * door = (UPrimitiveComponent *) e;
-			if (door->ComponentHasTag("left")) {
-				door->SetWorldRotation(left_open);
-			} else if (door->ComponentHasTag("right")) {
-				door->SetWorldRotation(right_open);
-			}
-		}
-		isOpen = true;
-	}
 	
 }
 

@@ -4,8 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "DoorRotator.generated.h"
+#include "MyDoor.h"
 
+#include "DoorRotator.generated.h"
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class CRYPTRAIDER_API UDoorRotator : public UActorComponent
@@ -24,17 +25,11 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	void Toggle_isOpening();
+
 
 private:
-
-	UPROPERTY(EditAnywhere)
-		FRotator right_openRot = FRotator(0, 90, 0);
-	UPROPERTY(EditAnywhere)
-		FRotator right_closedRot = FRotator(0, 90, 0);
-	UPROPERTY(EditAnywhere)
-		FRotator left_closedRot = FRotator(0, 0, 0);
-	UPROPERTY(EditAnywhere)
-		FRotator left_openRot = FRotator(0, 90, 0);
+	
 	
 	UPROPERTY(EditAnywhere)
 		float speed = 4;
@@ -42,11 +37,24 @@ private:
 	UPROPERTY(EditAnywhere)
 		bool isOpening = false;
 
-	USceneComponent * rightDoor;
-	USceneComponent * leftDoor;
+	UPROPERTY(EditAnywhere)
+		FRotator right_openRot = FRotator(0,-90,0);
+	UPROPERTY(EditAnywhere)
+		FRotator right_closedRot = FRotator(0,0,0);
+	UPROPERTY(EditAnywhere)
+		FRotator left_openRot = FRotator(0,90,0);
+	UPROPERTY(EditAnywhere)
+		FRotator left_closedRot = FRotator(0,0,0);
+
+
+	MyDoor rightDoor;
+	MyDoor leftDoor;
+
+
+
 
 
 	FRotator FindNewRotation(bool isOpening, FRotator current, float DeltaTime);
 
-	
 };
+
